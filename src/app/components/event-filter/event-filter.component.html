@@ -1,0 +1,64 @@
+<!-- <form [formGroup]="form">
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
+        <span>Skip until...</span>
+        <mat-form-field>
+            <mat-label>Event</mat-label>
+            <mat-select formControlName="eventName">
+                <mat-option>Any</mat-option>
+                <mat-option *ngFor="let eventName of eventNames" [value]="eventName">
+                    {{eventName}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <span>contains</span>
+        <mat-form-field>
+            <mat-label>Text</mat-label>
+            <input matInput formControlName="text">
+            <button mat-button *ngIf="form.getRawValue().text" matSuffix mat-icon-button (click)="onClearText()">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-form-field>
+        <button mat-raised-button (click)="onApplyFilter()">Run</button>
+    </div>
+</form> -->
+
+<form [formGroup]="form">
+    <div fxLayout="column">
+        <div fxLayout="row" fxLayoutAlign="start center">
+            <mat-form-field>
+                <mat-label>Jobs</mat-label>
+                <mat-select formControlName="jobIds" multiple data-testid="jobIds-select">
+                    <mat-option *ngFor="let jobId of jobIds" [value]="jobId">{{jobId}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <button mat-icon-button (click)="clearJobIds()" *ngIf="form.getRawValue().jobIds.length"
+                data-testid="jobIds-clear-button">
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="start center">
+            <mat-form-field>
+                <mat-label>Event types</mat-label>
+                <mat-select formControlName="eventTypes" multiple data-testid="eventTypes-select">
+                    <mat-option *ngFor="let eventType of eventTypes" [value]="eventType">{{eventType}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <button mat-icon-button (click)="clearEventTypes()" *ngIf="form.getRawValue().eventTypes.length"
+                data-testid="eventTypes-clear-button">
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="start center">
+            <mat-form-field>
+                <mat-label>Text</mat-label>
+                <input matInput formControlName="text" data-testid="text-input">
+            </mat-form-field>
+            <button mat-icon-button (click)="clearText()" *ngIf="form.getRawValue().text"
+                data-testid="text-input-clear-button">
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+    </div>
+</form>
+
+<!-- <pre>{{form.getRawValue() | json}}</pre> -->

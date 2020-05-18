@@ -1,0 +1,3 @@
+<ng-container *ngFor="let job of liveJobList; trackBy: trackByFn">
+    <app-live-job-item (jobResume)="jobResume.emit($event)" [job]="job"></app-live-job-item>
+</ng-container>

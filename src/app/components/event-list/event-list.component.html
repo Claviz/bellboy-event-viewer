@@ -1,0 +1,8 @@
+<cdk-virtual-scroll-viewport #viewport itemSize="20" style="width: 100%; height: 100%;">
+    <div *cdkVirtualFor="let event of events?.slice()?.reverse(); trackBy: trackByFn"
+        [ngClass]="{ 'selected': eventSelected(event) }" fxLayout="row" (click)="onEventClick(event)" class="list-item">
+        <span style="margin-left: 10px;">{{event.jobId}} {{event.eventName}}</span>
+        <span fxFlex></span>
+        <span style="margin-right: 10px;">{{getDate(event)}}</span>
+    </div>
+</cdk-virtual-scroll-viewport>

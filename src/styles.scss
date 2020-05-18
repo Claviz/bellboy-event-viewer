@@ -1,0 +1,44 @@
+@import "~@angular/material/theming";
+@include mat-core();
+
+$light-app-primary: mat-palette($mat-indigo);
+$light-app-accent: mat-palette($mat-orange, A200, A100, A400);
+$light-app-theme: mat-light-theme($light-app-primary, $light-app-accent);
+@include angular-material-theme($light-app-theme);
+
+$dark-primary: mat-palette($mat-blue-grey);
+$dark-accent: mat-palette($mat-orange, A200, A100, A400);
+$dark-warn: mat-palette($mat-deep-orange);
+$dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
+
+.dark-theme {
+    @include angular-material-theme($dark-theme);
+    .as-split-gutter {
+        background-color: rgb(82, 82, 82) !important;
+    }
+
+    .found-editor-text-line {
+        background-color: mat-color($dark-accent);
+    }
+
+    .selected {
+        background-color: mat-color($dark-accent);
+    }
+}
+
+html,
+body {
+    height: 100%;
+}
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.found-editor-text-line {
+    background-color: mat-color($light-app-accent);
+}
+
+.selected {
+    background-color: mat-color($light-app-accent);
+}

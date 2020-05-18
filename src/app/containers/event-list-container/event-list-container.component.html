@@ -1,0 +1,3 @@
+<app-event-list [events]="events$ | async" [currentEvent]="currentEvent$ | async" (selectEvent)="onSelectEvent($event)"
+    [resized]="resized$ | async">
+</app-event-list>

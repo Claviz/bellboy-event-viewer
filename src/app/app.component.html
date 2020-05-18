@@ -1,0 +1,28 @@
+<as-split direction="horizontal">
+    <as-split-area>
+        <as-split direction="vertical" (dragEnd)="onGutterClick($event)">
+            <as-split-area>
+                <div style="margin: 10px;">
+                    <h3>Filters</h3>
+                    <app-event-filter-container></app-event-filter-container>
+                </div>
+            </as-split-area>
+            <as-split-area>
+                <app-event-list-container [resized$]="resized$"></app-event-list-container>
+            </as-split-area>
+            <as-split-area>
+                <div style="margin: 10px;">
+                    <h3>Live jobs</h3>
+                    <app-live-job-list-container></app-live-job-list-container>
+                </div>
+            </as-split-area>
+        </as-split>
+    </as-split-area>
+    <as-split-area>
+        <as-split direction="vertical" unit="pixel" [disabled]="true">
+            <as-split-area>
+                <app-event-viewer-container></app-event-viewer-container>
+            </as-split-area>
+        </as-split>
+    </as-split-area>
+</as-split>

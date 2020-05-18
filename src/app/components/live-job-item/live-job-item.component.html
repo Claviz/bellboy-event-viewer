@@ -1,0 +1,30 @@
+<form [formGroup]="form">
+    <mat-card fxLayout="column" style="margin: 10px 0;">
+        <div fxLayout="row" fxLayoutAlign="start center">
+            <div fxLayout="column">
+                <span>{{job?.jobId}}</span>
+                <mat-slide-toggle formControlName="conditionalBreak" data-testid="conditionalBreak-slide-toggle">
+                    Conditional break
+                </mat-slide-toggle>
+            </div>
+            <span fxFlex></span>
+
+            <button mat-icon-button matTooltip="Next event" (click)="onJobClick(job?.jobId)"
+                [disabled]="job?.unavailable" data-testid="next-event-button">
+                <mat-icon>play_arrow</mat-icon>
+            </button>
+        </div>
+        <div *ngIf="form.getRawValue().conditionalBreak" style="margin: 10px 0 0 0;">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <mat-form-field>
+                    <mat-label>Stop when event name or data contains...</mat-label>
+                    <input matInput formControlName="condition" data-testid="condition-input">
+                </mat-form-field>
+                <button mat-icon-button (click)="clearCondition()" *ngIf="form.getRawValue().condition"
+                    [disabled]="job?.unavailable" data-testid="clear-condition-button">
+                    <mat-icon>close</mat-icon>
+                </button>
+            </div>
+        </div>
+    </mat-card>
+</form>

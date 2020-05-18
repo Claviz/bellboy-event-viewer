@@ -1,0 +1,5 @@
+<div [fxHide]="!filterResult?.event" fxFlexFill>
+    <ngx-monaco-editor fxFlexFill [options]="editorOptions" [ngModel]="code" (init)="onInit($event)">
+    </ngx-monaco-editor>
+</div>
+<span [fxHide]="filterResult?.event"></span>
