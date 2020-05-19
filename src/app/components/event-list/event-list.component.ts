@@ -42,7 +42,7 @@ export class EventListComponent implements OnInit, OnChanges {
   }
 
   getDate(event: ViewerEvent) {
-    return dayjs(event.timestamp).format('MM.DD.YYYY HH:mm:ss:SSS');
+    return dayjs(event.timestamp).format('DD.MM.YYYY HH:mm:ss:SSS');
   }
 
   trackByFn(index: number, event: ViewerEvent) {
