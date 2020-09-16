@@ -31,10 +31,7 @@ export const selectAllEvents = createSelector(
     selectEventState,
     fromEvent.selectAllEvents
 );
-// export const selectUserTotal = createSelector(
-//     selectUserState,
-//     fromUser.selectUserTotal
-// );
+
 export const selectCurrentEventId = createSelector(
     selectEventState,
     fromEvent.getSelectedEventId
@@ -68,14 +65,14 @@ export const selectCurrentEventTextFilterResult = createSelector(
     }
 );
 
-export const selectLiveJobList = createSelector(
+export const selectAllLiveJobs = createSelector(
     selectLiveJobState,
     fromLiveJobEvent.selectAllLiveJobs,
 );
 
 export const selectMostRecentEvent = createSelector(
     selectAllEvents,
-    (events) => events[events.length - 1],
+    (events) => events[0],
 )
 
 export const selectEventFilterText = createSelector(
@@ -128,4 +125,23 @@ export const selectJobIdsFromEvents = createSelector(
     (events) => {
         return [...new Set(events.map(x => x.jobId))];
     }
+);
+
+export const selectLiveJobList = createSelector(
+    selectAllLiveJobs,
+    selectJobIdsFromEvents,
+    (jobs, eventJobIds) => {
+        if (eventJobIds.length) {
+            const sortedJobs = [];
+            for (let jobId of eventJobIds) {
+                const job = jobs.find(x => x.jobId === jobId);
+                if (job) {
+                    sortedJobs.push(job);
+                }
+            }
+            const leftJobs = jobs.filter(x => !eventJobIds.includes(x.jobId));
+            return [...sortedJobs, ...leftJobs];
+        }
+        return jobs;
+    },
 );

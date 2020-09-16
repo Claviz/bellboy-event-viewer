@@ -10,7 +10,7 @@ export interface State extends EntityState<ViewerEvent> {
 }
 
 export const adapter: EntityAdapter<ViewerEvent> = createEntityAdapter<ViewerEvent>({
-    sortComparer: (a, b) => a.timestamp - b.timestamp,
+    sortComparer: (a, b) => b.timestamp - a.timestamp,
     selectId: (x) => x.eventId,
 });
 

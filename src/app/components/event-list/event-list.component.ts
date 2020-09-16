@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, ViewChild, AfterViewInit, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, AfterViewInit, OnChanges, SimpleChanges, OnDestroy, HostListener, ElementRef, ViewChildren, QueryList, ChangeDetectorRef } from '@angular/core';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { Subject, Observable, Subscription } from 'rxjs';
 import * as dayjs from 'dayjs';
@@ -19,8 +19,24 @@ export class EventListComponent implements OnInit, OnChanges {
   @Output() selectEvent = new EventEmitter<ViewerEvent>();
 
   @ViewChild('viewport', { static: true }) viewport: CdkVirtualScrollViewport;
+  @ViewChildren('event') eventElements: any;
 
-  constructor() { }
+  constructor(private ref: ChangeDetectorRef) { }
+
+  onKeyDown(keyboardEvent: KeyboardEvent, viewerEvent: ViewerEvent) {
+    if (keyboardEvent.key !== 'Tab') {
+      keyboardEvent.preventDefault();
+    }
+    if (keyboardEvent.key === 'Enter') {
+      this.selectEvent.emit(viewerEvent);
+    } else if (keyboardEvent.key === 'ArrowUp' || keyboardEvent.key === 'ArrowDown') {
+      const eventIndex = this.events.indexOf(viewerEvent);
+      if ((keyboardEvent.key === 'ArrowUp' ? eventIndex : this.events.length - eventIndex - 1) > 0) {
+        const nextIndex = eventIndex - (keyboardEvent.key === 'ArrowUp' ? 1 : -1);
+        this.selectEvent.emit(this.events[nextIndex]);
+      }
+    }
+  }
 
   ngOnInit() { }
 
@@ -30,6 +46,11 @@ export class EventListComponent implements OnInit, OnChanges {
     }
     if (changes.resized) {
       this.viewport.checkViewportSize();
+    }
+    if (changes.currentEvent && this.currentEvent) {
+      this.ref.detectChanges();
+      const eventIndex = this.events.indexOf(this.currentEvent);
+      this.eventElements._results.map(x => x.nativeElement)[eventIndex].focus();
     }
   }
 
